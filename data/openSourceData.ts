@@ -36,6 +36,12 @@ const openSourceData: Project[] = [
     imgSrc: '/static/images/gradio.png',
     href: 'https://github.com/gradio-app/gradio/commits?author=lappemic',
   },
+  {
+    title: 'ui/beats',
+    description: `A UI library in React, Typescript, Tailwind CSS, and Framer Motion. I contributed several components`,
+    imgSrc: '/static/images/ui-beats.png',
+    href: 'https://github.com/nikhils4/ui-beats/commits?author=lappemic',
+  },
 ]
 
 export default openSourceData
