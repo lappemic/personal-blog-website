@@ -11,7 +11,7 @@ const ContentSecurityPolicy = `
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src *.s3.amazonaws.com;
-  connect-src *;
+  connect-src * https://api.beehiiv.com;
   font-src 'self';
   frame-src giscus.app
 `
@@ -95,6 +95,10 @@ module.exports = () => {
       })
 
       return config
+    },
+    env: {
+      BEEHIIV_API_KEY: process.env.BEEHIIV_API_KEY,
+      BEEHIIV_PUBLICATION_ID: process.env.BEEHIIV_PUBLICATION_ID,
     },
   })
 }
