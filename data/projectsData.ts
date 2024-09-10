@@ -27,6 +27,12 @@ const projectsData: Project[] = [
     href: 'https://www.csv2ai.io',
   },
   {
+    title: 'OpenClimate.fund',
+    description: `A crowdfunding platform for climate projects. Built with Next.js on github pages.`,
+    imgSrc: '/static/images/openclimate.fund.png',
+    href: 'https://protontypes.github.io/open-climate-fund/',
+  },
+  {
     title: 'BatteryValueModel',
     description: `BatteryValueModel is a first hypothesis model to calculate the remaining value of an EV battery. The model is based on the battery's state of health, it's usage history and accounts for its age (warranty).`,
     imgSrc: '/static/images/batteryvaluemodel.png',
