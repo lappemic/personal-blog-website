@@ -7,6 +7,19 @@ interface Project {
 
 const projectsData: Project[] = [
   {
+    title: 'csv2ai.io',
+    description: `csv2ai takes a csv of product descriptions and optimizes the description and title, optimizes for SEO and lets you translate everything to 100+ languages. 
+    Built with Next.js, Tailwind CSS, Contentlayer and Supabase.`,
+    imgSrc: '/static/images/csv2ai.png',
+    href: 'https://www.csv2ai.io',
+  },
+  {
+    title: 'SustainabilitySoftwares.com',
+    description: `A directory of sustainability softwares. Built with Next.js, Tailwind CSS.`,
+    imgSrc: '/static/images/sustainabilitysoftwares.png',
+    href: 'https://www.sustainabilitysoftwares.com',
+  },
+  {
     title: 'foodjuggler',
     description: `A MVP i made some time back to test the first OpenAI API: Suggests a recipe based 
     on the given ingredients and creates a picture of it. Built with Streamlit and OpenAI API.`,
@@ -18,13 +31,6 @@ const projectsData: Project[] = [
     description: `A directory of refurbished tech products with a Blog. Built with Next.js, Tailwind CSS, Contentlayer and Supabase.`,
     imgSrc: '/static/images/officiallyrefurbished.png',
     href: 'https://www.officiallyrefurbished.com',
-  },
-  {
-    title: 'csv2ai.io',
-    description: `csv2ai takes a csv of product descriptions and optimizes the description and title, optimizes for SEO and lets you translate everything to 100+ languages. 
-    Built with Next.js, Tailwind CSS, Contentlayer and Supabase.`,
-    imgSrc: '/static/images/csv2ai.png',
-    href: 'https://www.csv2ai.io',
   },
   {
     title: 'OpenClimate.fund',
