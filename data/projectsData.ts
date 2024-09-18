@@ -20,13 +20,6 @@ const projectsData: Project[] = [
     href: 'https://www.sustainabilitysoftwares.com',
   },
   {
-    title: 'foodjuggler',
-    description: `A MVP i made some time back to test the first OpenAI API: Suggests a recipe based 
-    on the given ingredients and creates a picture of it. Built with Streamlit and OpenAI API.`,
-    imgSrc: '/static/images/foodjuggler.png',
-    href: 'https://www.thefoodjuggler.com',
-  },
-  {
     title: 'OfficiallyRefurbished.com',
     description: `A directory of refurbished tech products with a Blog. Built with Next.js, Tailwind CSS, Contentlayer and Supabase.`,
     imgSrc: '/static/images/officiallyrefurbished.png',
@@ -37,6 +30,13 @@ const projectsData: Project[] = [
     description: `A crowdfunding platform for climate projects. Built with Next.js on github pages.`,
     imgSrc: '/static/images/openclimate.fund.png',
     href: 'https://protontypes.github.io/open-climate-fund/',
+  },
+  {
+    title: 'foodjuggler',
+    description: `A MVP i made some time back to test the first OpenAI API: Suggests a recipe based 
+    on the given ingredients and creates a picture of it. Built with Streamlit and OpenAI API.`,
+    imgSrc: '/static/images/foodjuggler.png',
+    href: 'https://www.thefoodjuggler.com',
   },
   {
     title: 'BatteryValueModel',
