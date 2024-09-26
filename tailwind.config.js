@@ -26,7 +26,7 @@ module.exports = {
         heading: ['var(--font-raleway)', ...fontFamily.sans],
       },
       colors: {
-        primary: colors.amber,
+        primary: colors.blue,
         accent: colors.indigo,
         gray: colors.slate,
       },
