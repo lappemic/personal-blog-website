@@ -1,0 +1,128 @@
+---
+title: 'Setting up new linux server'
+date: '2024-11-12'
+tags: ['linux']
+draft: false
+summary: 'How i set up my server on digital ocean'
+---
+
+I recently had to setup a server for some scheduled jobs (a scraper for [nextgenenergyjobs.com](https://nextgenenergyjobs.com]). I did it already once before. And before this once at work. And nevertheless i struggled again and had issues configuring this all. Since i am just getting familiar with using the command line and linus more and more i got problems in different areas. This is why i decided to write this down as a blog post for someone who struggles with this setup often and i have to think and document through each step. So this post is about setting up a new digitalocean server (droplet), create a new user, and grant it github access.
+
+# Prerequisites
+
+- A Digital Ocean (DO) account (go to [https://www.digitalocean.com/](https://www.digitalocean.com/) and create one)
+- SSH keys added to DO account (you will be prompted when you create the droplet)
+- Basic command line knowledge (if you want to improve have a look at [your missing cs semester](https://missing.csail.mit.edu/)
+
+# 1. Creating the droplet
+
+Go to your project (or create one if you do not have one). Click 'Create' on the topbar, and choose 'Droplets'. Choose a region, 'Ubuntu' as the OS, 'Shared CPU', 'Regular' and '$4/mo' and 'SSH Key' for the authentication method (add one if not yet added - click 'New SSH Key' for guidance if needed), click 'Add improved metrics monitoring and alerting (free)' and 'Create Droplet'. It takes some seconds and then you have a running server. Copy the IP address (or ipv4), you will need this for the connection afterwards.
+
+# 2. Initial SSH setup
+
+Ensure your ssh agent has loaded your keys:
+
+```bash
+ssh-add
+```
+
+Then connect to your droplet as root:
+
+```bash
+ssh root@your.ip.address
+```
+
+# 3. Create a Secure User Account
+
+For security reasons, we don't want to work as root. Let's create a new user account ('deployer' in my case) with sudo privileges.
+
+```bash
+# create new user (you'll be prmpted for new password - user infos like name, etc. can be left empty)
+adduser deployer
+
+# grant sudo privileges
+usermod -aG sudo deployer
+```
+
+# 4. Setting up SSH access for New User
+
+There are two ways to do it: Step by Step or the Shortcut
+
+### 4.1 Step by Step
+
+```bash
+# create and configure .ssh directory
+mkdir -p /home/deployer/.ssh
+chmod 700 /home/deployer/.ssh
+
+# set up authorized_keys file
+touch /home/deployer/.ssh/authorized_keys
+chmod 600 /home/deployer/.ssh/authorized_keys
+
+# copy your public key you used on digital ocean (run this on your local machine)
+cat ~/.ssh/ssh-key-used-in-do.pub
+
+# add your key to authorized_keys (on the droplet)
+echo "COPIED_PUBLIC_KEY" >> /home/deployer/.ssh/authorized_keys
+
+# set correct ownership
+chown -R deployer:deplyer /home/deployer/.ssh
+```
+
+### 4.2 Shortcut
+
+Update with your infos and run this from your local machine:
+
+```bash
+cat ~/.ssh/ssh-key-used-in-do.pub | ssh root@your.ip.address "mkdir -p /home/deployer/.ssh && cat >> /home/deployer/.ssh/authorized_keys && chown -R deployer:deployer /home/deployer/.ssh && chmod 700 /home/deployer/.ssh && chmod 600 /home/deployer/.ssh/authorized_keys"
+```
+
+### 4.3 Check Configuration
+
+Try to connect to the server:
+
+```bash
+ssh deployer@your.ip.address
+```
+
+If this connects to your server, you are good to go.
+
+# 5. Securing SSH Access
+
+We disable root login for better security (Claude said so):
+
+````bash
+# connect to server with new user
+ssh deployer@your.ip.address
+
+# edit ssh configuration
+sudo vim /etc/ssh/sshd_config
+
+# find and modify to
+PermitRootLogin no
+
+# restart the ssh service
+sudo systemctl restart ssh
+
+# 6. Settung Up GitHub Access
+If you plan to work with github repositories (what else would you do?), follow these steps:
+- Generate new ssh key pair
+```bash
+ssh-keygen
+````
+
+- Display and copy your public key
+
+```bash
+cat ~/.ssh/id_ed25519.pub # or whatever key you chose
+```
+
+- Add thi key to your github account:
+  - go tot github settings -> ssh and gpg key
+  - click 'New SSH key'
+  - Paste your public key
+
+## Notes
+
+- if you need the root password you can get it through the password reset option in the DO dashboard (there is no other way)
+- consider adding your droplet to your ssh config file for easier access
