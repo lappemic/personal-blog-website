@@ -13,7 +13,7 @@ const siteMetadata = {
   mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'mi.scheiwiller@protonmail.com',
   github: 'https://github.com/lappemic',
-  x: 'https://x.com/mischeiwiller',
+  // x: 'https://x.com/mischeiwiller',
   // twitter: 'https://twitter.com/Twitter',
   // facebook: 'https://facebook.com',
   // youtube: 'https://youtube.com',
