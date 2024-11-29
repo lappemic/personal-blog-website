@@ -8,9 +8,9 @@ const siteMetadata = {
   theme: 'system', // system, dark or light
   siteUrl: 'https://michaelscheiwiller.com',
   siteRepo: 'https://github.com/lappemic/personal-blog-website',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
-  socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
-  mastodon: 'https://mastodon.social/@mastodonuser',
+  siteLogo: `${process.env.BASE_PATH || ''}/static/favicons/mstile-310x310.png`,
+  socialBanner: `${process.env.BASE_PATH || ''}/static/favicons/mstile-310x310.png`,
+  // mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'mi.scheiwiller@protonmail.com',
   github: 'https://github.com/lappemic',
   // x: 'https://x.com/mischeiwiller',

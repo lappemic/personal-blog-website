@@ -29,6 +29,13 @@ const projectsData: Project[] = [
     href: 'https://www.nextgenenergyjobs.com?ref=michaelscheiwiller.com',
   },
   {
+    title: 'MindBoostingBooks.com',
+    description:
+      'A directory of books categorized by topic which are considered to be worth reading. It uses [Next.js](https://nextjs.org/), [shadcn/ui](https://ui.shadcn.com/)/[Tailwind CSS](https://tailwindcss.com/) and [Supabase](https://supabase.com).',
+    imgSrc: '/static/images/mindboostingbooks.png',
+    href: 'https://www.mindboostingbooks.com?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'TheCyclingCollective.com',
     description:
       'A platform for cycling enthusiasts to share their bike builds, parts and events. Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) and [Contentlayer](https://www.contentlayer.dev/).',
