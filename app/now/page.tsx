@@ -60,13 +60,6 @@ export default function Now() {
               </ul>
             </section>
 
-            <section>
-              <h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-gray-100">
-                Current Location
-              </h3>
-              <p className="text-gray-800 dark:text-gray-200">Based in [Your Location]</p>
-            </section>
-
             <div className="mt-8 text-sm text-gray-600 dark:text-gray-400">
               <p>
                 Last updated:{' '}
