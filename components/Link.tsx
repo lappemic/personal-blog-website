@@ -7,16 +7,19 @@ const CustomLink = ({ href, ...rest }: LinkProps & AnchorHTMLAttributes<HTMLAnch
   const isInternalLink = href && href.startsWith('/')
   const isAnchorLink = href && href.startsWith('#')
 
+  const baseClasses =
+    'underline decoration-neutral-400 decoration-1 underline-offset-2 hover:decoration-neutral-600 dark:decoration-neutral-700 dark:hover:decoration-neutral-500'
+
   if (isInternalLink) {
-    return <Link className="break-words" href={href} {...rest} />
+    return <Link href={href} className={baseClasses} {...rest} />
   }
 
   if (isAnchorLink) {
-    return <a className="break-words" href={href} {...rest} />
+    return <a href={href} className={baseClasses} {...rest} />
   }
 
   return (
-    <a className="break-words" target="_blank" rel="noopener noreferrer" href={href} {...rest} />
+    <a href={href} target="_blank" rel="noopener noreferrer" className={baseClasses} {...rest} />
   )
 }
 

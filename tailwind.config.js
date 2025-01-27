@@ -26,43 +26,61 @@ module.exports = {
         heading: ['var(--font-raleway)', ...fontFamily.sans],
       },
       colors: {
-        primary: colors.blue,
-        accent: colors.indigo,
-        gray: colors.slate,
+        primary: colors.neutral,
+        gray: colors.neutral,
       },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
             a: {
-              color: theme('colors.primary.500'),
+              color: theme('colors.neutral.900'),
+              textDecoration: 'underline',
+              textDecorationColor: theme('colors.neutral.400'),
+              textUnderlineOffset: '3px',
               '&:hover': {
-                color: `${theme('colors.primary.600')}`,
+                color: theme('colors.neutral.800'),
+                textDecorationColor: theme('colors.neutral.600'),
               },
-              code: { color: theme('colors.primary.400') },
+              code: { color: theme('colors.neutral.800') },
             },
-            'h1,h2': {
-              fontWeight: '700',
-              letterSpacing: theme('letterSpacing.tight'),
-            },
-            h3: {
+            'h1,h2,h3,h4': {
               fontWeight: '600',
+              letterSpacing: '-0.025em',
             },
             code: {
-              color: theme('colors.indigo.500'),
+              color: theme('colors.neutral.700'),
+              backgroundColor: theme('colors.neutral.100'),
+              paddingLeft: '4px',
+              paddingRight: '4px',
+              paddingTop: '2px',
+              paddingBottom: '2px',
+              borderRadius: '0.25rem',
+            },
+            'code::before': {
+              content: 'none',
+            },
+            'code::after': {
+              content: 'none',
             },
           },
         },
         invert: {
           css: {
             a: {
-              color: theme('colors.primary.500'),
+              color: theme('colors.neutral.100'),
+              textDecorationColor: theme('colors.neutral.700'),
               '&:hover': {
-                color: `${theme('colors.primary.400')}`,
+                color: theme('colors.neutral.200'),
+                textDecorationColor: theme('colors.neutral.500'),
               },
-              code: { color: theme('colors.primary.400') },
+              code: { color: theme('colors.neutral.200') },
             },
-            'h1,h2,h3,h4,h5,h6': {
-              color: theme('colors.gray.100'),
+            'h1,h2,h3,h4': {
+              color: theme('colors.neutral.100'),
+            },
+            code: {
+              color: theme('colors.neutral.300'),
+              backgroundColor: theme('colors.neutral.800'),
             },
           },
         },

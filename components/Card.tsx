@@ -12,7 +12,7 @@ interface CardProps {
 export default function Card({ title, description, imgSrc, href }: CardProps) {
   return (
     <div className="md p-4 md:w-1/2" style={{ maxWidth: '544px' }}>
-      <div className="h-full overflow-hidden rounded-md border-2 border-gray-200 border-opacity-60 dark:border-gray-700">
+      <div className="h-full overflow-hidden border border-neutral-200 dark:border-neutral-800">
         {href ? (
           <Link href={href} aria-label={`Link to ${title}`}>
             {imgSrc && (
@@ -37,7 +37,7 @@ export default function Card({ title, description, imgSrc, href }: CardProps) {
           )
         )}
         <div className="p-6">
-          <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
+          <h2 className="mb-3 text-xl font-medium leading-8 tracking-tight text-neutral-900 dark:text-neutral-100">
             {href ? (
               <Link href={href} aria-label={`Link to ${title}`}>
                 {title}
@@ -47,16 +47,16 @@ export default function Card({ title, description, imgSrc, href }: CardProps) {
             )}
           </h2>
           <p
-            className="prose mb-3 max-w-none text-gray-500 dark:text-gray-400"
+            className="prose mb-3 max-w-none text-neutral-600 dark:text-neutral-400"
             dangerouslySetInnerHTML={{ __html: parseMarkdownLinks(description) }}
           />
           {href && (
             <Link
               href={href}
-              className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+              className="text-sm font-medium text-neutral-900 underline decoration-neutral-400 decoration-1 underline-offset-2 hover:decoration-neutral-600 dark:text-neutral-100 dark:decoration-neutral-700 dark:hover:decoration-neutral-500"
               aria-label={`Link to ${title}`}
             >
-              Learn more &rarr;
+              Read more
             </Link>
           )}
         </div>
