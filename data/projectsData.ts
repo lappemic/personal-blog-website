@@ -55,6 +55,12 @@ const projectsData: Project[] = [
     href: 'https://www.csv2ai.io?ref=michaelscheiwiller.com',
   },
   {
+    title: 'pongarcade.com',
+    description: `A simple pong game built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/).`,
+    imgSrc: '/static/images/pongarcade.png',
+    href: 'https://www.pongarcade.com?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'This Website :D',
     description:
       'This website is a portfolio of my projects and a blog (once i start the blog...). Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) and [Contentlayer](https://www.contentlayer.dev/).',
