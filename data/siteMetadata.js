@@ -6,7 +6,7 @@ const siteMetadata = {
   description: 'A start to the world of personal websites',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://michaelscheiwiller.com',
+  siteUrl: 'https://www.michaelscheiwiller.com',
   siteRepo: 'https://github.com/lappemic/personal-blog-website',
   siteLogo: `${process.env.BASE_PATH || ''}/static/favicons/mstile-310x310.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/favicons/mstile-310x310.png`,
