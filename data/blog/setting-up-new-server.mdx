@@ -117,12 +117,16 @@ ssh-keygen
 cat ~/.ssh/id_ed25519.pub # or whatever key you chose
 ```
 
-- Add thi key to your github account:
+- Add the key to your github account:
   - go tot github settings -> ssh and gpg key
   - click 'New SSH key'
   - Paste your public key
 
 ## Notes
 
-- if you need the root password you can get it through the password reset option in the DO dashboard (there is no other way)
-- consider adding your droplet to your ssh config file for easier access
+- if you need the root password you can get it through the password reset option in the [DO dashboard](https://cloud.digitalocean.com/droplets/) (click on your droplet > Access > Reset Root Password) (there is no other way)
+- consider adding your server to your ssh config file for easier access
+
+## Edit
+
+- 21.03.2025: Minor typo fixes and generalization from DO to other providers
