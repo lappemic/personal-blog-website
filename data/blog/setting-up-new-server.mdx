@@ -3,20 +3,20 @@ title: 'Setting up new linux server'
 date: '2024-11-12'
 tags: ['linux']
 draft: false
-summary: 'How i set up my server on digital ocean'
+summary: 'How i set up my external server'
 ---
 
-I recently had to setup a server for some scheduled jobs (a scraper for [nextgenenergyjobs.com](https://nextgenenergyjobs.com]). I did it already once before. And before this once at work. And nevertheless i struggled again and had issues configuring this all. Since i am just getting familiar with using the command line and linus more and more i got problems in different areas. This is why i decided to write this down as a blog post for someone who struggles with this setup often and i have to think and document through each step. So this post is about setting up a new digitalocean server (droplet), create a new user, and grant it github access.
+I recently had to setup a server for some scheduled jobs (a scraper for [nextgenenergyjobs.com](https://nextgenenergyjobs.com]). I did it already once before. And before this once at work. And nevertheless i struggled again and had issues configuring this all. Since i am just getting familiar with using the command line and linus more and more i got problems in different areas. This is why i decided to write this down as a blog post for someone who struggles with this setup often and i have to think and document through each step. So this post is about setting up a new server (e.g [digitalocean](https://www.digitalocean.com/products/droplets) or [Hetzner](https://www.hetzner.com/cloud/)), create a new user, and grant it github access.
 
 # Prerequisites
 
-- A Digital Ocean (DO) account (go to [https://www.digitalocean.com/](https://www.digitalocean.com/) and create one)
-- SSH keys added to DO account (you will be prompted when you create the droplet)
+- A DO or Hetzner account (go to [https://www.digitalocean.com/](https://www.digitalocean.com/) or [https://www.hetzner.com/](https://www.hetzner.com/) and create one)
+- SSH keys added to DO or Hetzner account (you will be prompted when you create the server)
 - Basic command line knowledge (if you want to improve have a look at [your missing cs semester](https://missing.csail.mit.edu/)
 
-# 1. Creating the droplet
+# 1. Creating the server
 
-Go to your project (or create one if you do not have one). Click 'Create' on the topbar, and choose 'Droplets'. Choose a region, 'Ubuntu' as the OS, 'Shared CPU', 'Regular' and '$4/mo' and 'SSH Key' for the authentication method (add one if not yet added - click 'New SSH Key' for guidance if needed), click 'Add improved metrics monitoring and alerting (free)' and 'Create Droplet'. It takes some seconds and then you have a running server. Copy the IP address (or ipv4), you will need this for the connection afterwards.
+Choose a region, 'Ubuntu' as the OS, 'Shared CPU', 'Regular' and 'SSH Key' for the authentication method (add one if not yet added - click 'New SSH Key' for guidance if needed) and the specs (cpu, ram, etc.) you need (differ from provider to provider). It takes some seconds and then you have a running server. Copy the IP address (or ipv4), you will need this for the connection afterwards. Such a minimal server will cost you ~$5/month.
 
 # 2. Initial SSH setup
 
@@ -125,7 +125,7 @@ cat ~/.ssh/id_ed25519.pub # or whatever key you chose
 ## Notes
 
 - if you need the root password you can get it through the password reset option in the [DO dashboard](https://cloud.digitalocean.com/droplets/) (click on your droplet > Access > Reset Root Password) (there is no other way)
-- consider adding your server to your ssh config file for easier access
+- consider [adding your server to your ssh config file](https://www.digitalocean.com/community/tutorials/how-to-configure-the-ssh-known_hosts-file-on-a-vps) for easier access
 
 ## Edit
 
