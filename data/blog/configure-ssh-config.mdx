@@ -1,0 +1,42 @@
+---
+title: 'Configure SSH config'
+date: '2025-03-21'
+tags: ['ssh']
+draft: false
+summary: 'How to configure your SSH config'
+---
+
+I get into working with servers and therefore ssh. One very convenient thing when connecting via ssh to other servers is setting up your ssh config file. This way you not always having to type out the ip as e.g.
+
+```bash
+ssh root@49.31.40.21
+```
+
+but can only give your servers names and use tab to autocomplete. So open or create the ssh config file with
+
+```bash
+vim ~~/.ssh/config
+```
+
+then type in the details of the server you have with the corresponding users. I e.g. created also a scraperuser for [NextGenenergyJobs.com](https://www.nextgenenergyjobs.com) which hosts all the jobscraping related repos and cronjobs (see [Setting up new linux server](https://www.michaelscheiwiller.com/blog/setting-up-new-server) on how to set up other users). In the ssh config then add
+
+```vim
+Host hetzner-root
+	HostName 71.13.43.01
+	IdentityFile ~/.ssh/id_ed25519_hetzner
+	User root
+
+Host hetzner-scraper
+	HostName 71.13.43.01
+	IdentityFile ~/.ssh/id_ed25519_hetzner
+	User scraperuser
+```
+
+When you saved above file you then can connect to your server with your user with either.
+
+```
+ssh hetzner-root
+
+# or
+ssh hetzner-superuser
+```
