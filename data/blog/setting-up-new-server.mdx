@@ -6,7 +6,7 @@ draft: false
 summary: 'How i set up my external server'
 ---
 
-I recently had to setup a server for some scheduled jobs aka cronjobs (a scraper for [nextgenenergyjobs.com](https://nextgenenergyjobs.com] - see [Working with cronjobs](https://www.michaelscheiwiller.com/blog/working-with-cronjobs) for more details). I did it already once before. And before this once at work. And nevertheless i struggled again and had issues configuring this all. Since i am just getting familiar with using the command line and linus more and more i got problems in different areas. This is why i decided to write this down as a blog post for someone who struggles with this setup often and i have to think and document through each step. So this post is about setting up a new server (e.g [digitalocean](https://www.digitalocean.com/products/droplets) or [Hetzner](https://www.hetzner.com/cloud/)), create a new user, and grant it github access.
+I recently had to setup a server for some scheduled jobs aka cronjobs (a scraper for [nextgenenergyjobs.com](https://nextgenenergyjobs.com] - see [Working with cronjobs](https://www.michaelscheiwiller.com/blog/working-with-cronjobs) for more details). I did it already once before. And before this once at work. And nevertheless i struggled again and had issues configuring this all. Since i am just getting familiar with using the command line and Linux more and more i got problems in different areas. This is why i decided to write this down as a blog post for someone who struggles with this setup often and i have to think and document through each step. So this post is about setting up a new server (e.g [digitalocean](https://www.digitalocean.com/products/droplets) or [Hetzner](https://www.hetzner.com/cloud/)), create a new user, and grant it github access.
 
 # Prerequisites
 
@@ -26,7 +26,7 @@ Ensure your ssh agent has loaded your keys:
 ssh-add
 ```
 
-Then connect to your droplet as root:
+Then connect to your server as root:
 
 ```bash
 ssh root@your.ip.address
@@ -37,7 +37,7 @@ ssh root@your.ip.address
 For security reasons, we don't want to work as root. Let's create a new user account ('deployer' in my case) with sudo privileges.
 
 ```bash
-# create new user (you'll be prmpted for new password - user infos like name, etc. can be left empty)
+# create new user (you'll be prompted for new password - user infos like name, etc. can be left empty)
 adduser deployer
 
 # grant sudo privileges
@@ -62,11 +62,11 @@ chmod 600 /home/deployer/.ssh/authorized_keys
 # copy your public key you used on digital ocean (run this on your local machine)
 cat ~/.ssh/ssh-key-used-in-do.pub
 
-# add your key to authorized_keys (on the droplet)
+# add your key to authorized_keys (on the server)
 echo "COPIED_PUBLIC_KEY" >> /home/deployer/.ssh/authorized_keys
 
 # set correct ownership
-chown -R deployer:deplyer /home/deployer/.ssh
+chown -R deployer:deployer /home/deployer/.ssh
 ```
 
 ### 4.2 Shortcut
@@ -124,7 +124,7 @@ cat ~/.ssh/id_ed25519.pub # or whatever key you chose
 
 ## Notes
 
-- if you need the root password you can get it through the password reset option in the [DO dashboard](https://cloud.digitalocean.com/droplets/) (click on your droplet > Access > Reset Root Password) (there is no other way)
+- if you need the root password you can get it through the password reset option (for DO in the [dashboard](https://cloud.digitalocean.com/droplets/) (click on your droplet > Access > Reset Root Password) (there is no other way)
 - consider [adding your server to your ssh config file](https://www.digitalocean.com/community/tutorials/how-to-configure-the-ssh-known_hosts-file-on-a-vps) for easier access
 
 ## Edit
