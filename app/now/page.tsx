@@ -27,14 +27,14 @@ export default function Now() {
               </h2>
               <p className="text-base text-gray-800 dark:text-gray-200">
                 This is my personal "now page" — inspired by{' '}
-                <a
+                <Link
                   href="https://nownownow.com/about"
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                  className="text-primary-500 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Derek Sivers
-                </a>
+                </Link>
                 .
               </p>
             </section>
@@ -46,9 +46,14 @@ export default function Now() {
               <ul className="list-disc space-y-1 pl-6 text-base text-gray-800 dark:text-gray-200">
                 <li>
                   Working on{' '}
-                  <a href="https://nextgenenergyjobs.com" target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href="https://nextgenenergyjobs.com"
+                    className="text-primary-500 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     NextGenEnergyJobs.com
-                  </a>
+                  </Link>
                 </li>
                 <li>Learning about AI Agents and System Administration</li>
                 <li>Reduced my working hours to ~30 hours a week</li>
@@ -61,16 +66,33 @@ export default function Now() {
                 <li>Parenting takes up quite some time</li>
                 <li>
                   Reading a lot since i heard{' '}
-                  <a href="https://x.com/naval" target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href="https://x.com/naval"
+                    className="text-primary-500 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Naval's
-                  </a>{' '}
+                  </Link>{' '}
                   podcast with{' '}
-                  <a href="https://x.com/tferriss" target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href="https://x.com/tferriss"
+                    className="text-primary-500 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Tim Ferris
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  I try to write (see <Link href="/blog">blog</Link>)
+                  I try to write (see{' '}
+                  <Link
+                    href="/blog"
+                    className="text-primary-500 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
+                  >
+                    blog
+                  </Link>
+                  )
                 </li>
                 <li>Working on consistency</li>
               </ul>

@@ -1,1 +1,10 @@
-{ "ssh": 1, "people": 1, "projects": 1, "linux": 2, "cronjobs": 1, "writing": 1, "personal": 1 }
+{
+  "business": 2,
+  "ssh": 1,
+  "people": 1,
+  "projects": 1,
+  "linux": 2,
+  "personal": 2,
+  "cronjobs": 1,
+  "writing": 1
+}

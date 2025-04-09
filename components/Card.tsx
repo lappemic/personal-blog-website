@@ -47,13 +47,13 @@ export default function Card({ title, description, imgSrc, href }: CardProps) {
             )}
           </h2>
           <p
-            className="prose mt-1 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400"
+            className="prose mt-1 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-300"
             dangerouslySetInnerHTML={{ __html: parseMarkdownLinks(description) }}
           />
           {href && (
             <Link
               href={href}
-              className="mt-2 inline-block text-xs font-medium text-neutral-900 underline decoration-neutral-400 decoration-1 underline-offset-2 hover:decoration-neutral-600 dark:text-neutral-100 dark:decoration-neutral-700 dark:hover:decoration-neutral-500"
+              className="mt-2 inline-block text-xs font-medium text-neutral-900 underline decoration-neutral-400 decoration-1 underline-offset-2 hover:decoration-neutral-600 dark:text-neutral-100 dark:decoration-neutral-600 dark:hover:decoration-neutral-400"
               aria-label={`Link to ${title}`}
             >
               Read more
