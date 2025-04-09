@@ -13,7 +13,7 @@ export default function Projects() {
           <h1 className="text-2xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl sm:leading-9">
             Projects
           </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+          <p className="text-base leading-7 text-gray-500 dark:text-gray-400">
             Selection of projects i have worked on. Some are just MVPs to validate an idea, others
             are more advanced web apps.
           </p>
@@ -35,7 +35,7 @@ export default function Projects() {
           <h1 className="text-2xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl sm:leading-9">
             Contributions
           </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+          <p className="text-base leading-7 text-gray-500 dark:text-gray-400">
             Selection of my opensource contributions.
           </p>
         </div>

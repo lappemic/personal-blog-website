@@ -24,7 +24,9 @@ export default function Page() {
   return (
     <>
       <AuthorLayout content={mainContent}>
-        <MDXLayoutRenderer code={author.body.code} components={MDXComponents} />
+        <div className="dark:prose-dark prose max-w-none text-base">
+          <MDXLayoutRenderer code={author.body.code} components={MDXComponents} />
+        </div>
       </AuthorLayout>
     </>
   )

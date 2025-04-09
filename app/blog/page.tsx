@@ -25,6 +25,7 @@ export default function BlogPage() {
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
       title="All Posts"
+      className="text-2xl font-bold leading-8 tracking-tight sm:text-3xl sm:leading-9"
     />
   )
 }
