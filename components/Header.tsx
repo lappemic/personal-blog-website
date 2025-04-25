@@ -4,13 +4,21 @@ import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
+import Image from 'next/image'
 
 const Header = () => {
   return (
     <header className="flex items-center justify-between border-b border-neutral-200 py-8 dark:border-neutral-800">
       <div>
         <Link href="/" aria-label={siteMetadata.headerTitle}>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/static/favicons/favicon.svg"
+              alt="Logo"
+              width={24}
+              height={24}
+              className="dark:invert"
+            />
             {typeof siteMetadata.headerTitle === 'string' ? (
               <div className="text-lg font-medium tracking-tight text-neutral-900 hover:text-neutral-700 dark:text-neutral-100 dark:hover:text-neutral-300">
                 {siteMetadata.headerTitle}
