@@ -5,6 +5,7 @@ tags: ['cronjobs', 'monitoring', 'automation']
 draft: false 
 summary: 'Don't be like me and monitor your cronjobs'
 ---
+
 In an earlier blogpost i lined out how i was [working with cronjobs](https://www.michaelscheiwiller.com/blog/working-with-cronjobs). The thing is everything works fine until it does not. And you want to know when it does not work fine anymore. And this is the reason why you monitor your cronjobs. So i was looking after the best and easiest way to do this: There does not even need to be a discussion to be about this. By far the best and easiest solution to get notified if your cronjob fails is [ntfy.sh](https://ntfy.sh).
 
 ntfy.sh lets you send push notifications to your browser (or phone if you install the app) via HTTP PUT or POST request. This is how you set it up:
@@ -13,15 +14,15 @@ ntfy.sh lets you send push notifications to your browser (or phone if you instal
 2. In the sidebar click 'Subscribe to topic'
 3. Give your topic any name (better make it non-recognizable since it is publicly visible), e.g. 'scraper_failed_328' and subscribe. You can test the notification manually:
 
-    ```
-    curl -d "Test: Scraper failed at $(date)" ntfy.sh/scraper_failed_328
-    ```
+   ```
+   curl -d "Test: Scraper failed at $(date)" ntfy.sh/scraper_failed_328
+   ```
 
 4. Use the topic name together with the ntfy.sh domain to send a POST request to your topic. For my [nextgenenergyjobs.com](https://www.nextgenenergyjobs.com) scraper this looks e.g. like this (the double pipe operator gets triggered when the previous command fails (non-zero exit status)):
 
-    ```
-    0 9 * * * /bin/bash -c 'cd /home/scraperuser/projects/best-jobscraper-in-the-world && source .venv/bin/activate && python3 src/main.py' >> /home/scraperuser/jobscraper.log 2>&1 || curl -d "Scraper failed at $(date)" ntfy.sh/scraper_failed_328'
-    ```
+   ```
+   0 9 * * * /bin/bash -c 'cd /home/scraperuser/projects/best-jobscraper-in-the-world && source .venv/bin/activate && python3 src/main.py' >> /home/scraperuser/jobscraper.log 2>&1 || curl -d "Scraper failed at $(date)" ntfy.sh/scraper_failed_328'
+   ```
 
 And this is it!
 
