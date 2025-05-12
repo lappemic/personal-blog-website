@@ -9,6 +9,13 @@ interface Project {
 
 const projectsData: Project[] = [
   {
+    title: 'ByteBricks.ch',
+    description:
+      'An MVP development Studio. For non-technical people who want to check their idea in real life.',
+    imgSrc: '/static/images/bytebricks.png',
+    href: 'https://www.bytebricks.ch?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'NextGenEnergyJobs.com',
     description:
       'A jobboard for renewable energy jobs. Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Shadcn/UI](https://ui.shadcn.com/), [MongoDB](https://www.mongodb.com/) and [Algolia](https://www.algolia.com/).',
