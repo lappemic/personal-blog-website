@@ -27,11 +27,11 @@ This "foggy mind" shortcoming can be overcome with Retrieval-Augmented Generatio
 
 I wanted to get something up and running as fast and simple as possible. This is why i went for a python only stack and no cloud database. This is what i used:
 
-- **Streamlit** - Streamlit is a fast and light python frontend framework. It lets you easily generate a simple UI. It is mostly used to showcase early MVP's or internal Dashboards. It lacks a lot of configuration options and SEO possibilities, but for a fast iteration without overhead it is perfect.
+- **Streamlit** - [Streamlit](https://streamlit.io/) is a fast and light python frontend framework. It lets you easily generate a simple UI. It is mostly used to showcase early MVP's or internal Dashboards. It lacks a lot of configuration options and SEO possibilities, but for a fast iteration without overhead it is perfect.
 
-- **ChromaDB** - ChromaDB is an open source vector database on top of Sqlite. It also writes in a single file and can therefore easily be selfhosted on a vps. It is designed for storing and querying embeddings.
+- **ChromaDB** - [ChromaDB](https://www.trychroma.com) is an open source vector database on top of Sqlite. It also writes in a single file and can therefore easily be selfhosted on a vps (check [this blogpost](https://www.michaelscheiwiller.com/blog/setting-up-new-server) to see how to set up a vps). It is designed for storing and querying embeddings.
 
-- **OpenAI API** - Well, it is just easiest and for an MVP i did not bother setting up a local LLM. The api is used as the main LLM as well as for the Retriever and Generator.
+- **OpenAI API** - Well, it is just easiest and for an MVP i did not bother setting up a local LLM. The [OpenAI API](https://platform.openai.com/docs/overview) is used as the main LLM as well as for the Retriever and Generator.
 
 # 4. Architecture
 
@@ -48,7 +48,7 @@ This is how the different pieces fit together:
 1. The user asks a question in the Streamlit App
 2. The app retrieves relevant law passages and articles form ChromaDB
 3. The app sends the context and question to OpenAI
-   - LangChain orchestrates the workflow:
+   - [LangChain](https://www.langchain.com/) orchestrates the workflow:
      - It takes the user's question and retrieved context
      - Formats them into a prompt using a template
      - Sendds this prompt to OpenAI
