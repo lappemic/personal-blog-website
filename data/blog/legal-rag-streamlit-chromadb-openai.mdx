@@ -48,11 +48,13 @@ This is how the different pieces fit together:
 1. The user asks a question in the Streamlit App
 2. The app retrieves relevant law passages and articles form ChromaDB
 3. The app sends the context and question to OpenAI
-   - [LangChain](https://www.langchain.com/) orchestrates the workflow:
-     - It takes the user's question and retrieved context
-     - Formats them into a prompt using a template
-     - Sendds this prompt to OpenAI
-     - Parses and returns the answer
+
+- [LangChain](https://www.langchain.com/) orchestrates the workflow:
+  - It takes the user's question and retrieved context
+  - Formats them into a prompt using a template
+  - Sendds this prompt to OpenAI
+  - Parses and returns the answer
+
 4. The LLM generates an answer, citing sources
 5. The answer and sources are shown to the user
 
@@ -61,5 +63,7 @@ This is how the different pieces fit together:
 Since i wanted to be able to cite the exact article from a certain law, i had to store the articles as chunks. Where the chunks would be too long i had to separate the chunk with the same article. Storing this together with the law as metadata in ChromaDB was initially not trivial. Especially having different laws and different formats had to make me different chunking functions.
 
 Building such applications has gotten much easier in the age of coding agents and IDE's (i only use cursor these days). But putting together different frameworks and libraries for this RAG app did not work by only prompting. Especially the metada storing in ChromaDB (which references the law and article number) was a struggle in the beginning. But once you go oldschool and visit the docs you are good to go.
+
+See [Fast Private Streamlit Sharing with Systemd](https://michaelscheiwiller.com/blog/fast-private-streamlit-sharing-with-systemd) for a guide on how to run the app as a systemd service on a VPS and share it with others.
 
 **Want to build something similar for your team or business? [Contact me](mailto:mi.scheiwiller@protonmail.com)**

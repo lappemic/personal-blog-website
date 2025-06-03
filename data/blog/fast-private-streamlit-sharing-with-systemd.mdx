@@ -1,0 +1,58 @@
+---
+title: 'Fast Private Streamlit Sharing with Systemd'
+date: '2025-06-03'
+tags: ['streamlit', 'vps', 'systemd']
+draft: false
+summary: 'How to run a Streamlit app as a systemd service on a VPS'
+---
+
+**This is a follow up to [Legal RAG with Streamlit, ChromaDB and OpenAI](https://michaelscheiwiller.com/blog/legal-rag-streamlit-chromadb-openai)**
+
+If you want to share a Streamlit app with someone who is not technical and can not clone and build the app on their own, you have to provide them somehow with a link they can access to use the app and give you feedback. For Streamlit apps whichs repos are public, this is easily done with [Streamlit Cloud](https://streamlit.io/cloud).
+
+But if you want to keep the repo private, you have to host the app somewhere. One of the easiest ways to do this i found to use a VPS and run the app as a systemd service (check [this post](https://michaelscheiwiller.com/blog/setting-up-new-server) for a vps setup guide). This post details how i set it up.
+
+# Running as a systemd Service
+
+To keep the Streamlit app running in the background and automatically restart it if it fails, you can set it up as a systemd service.
+
+1. **Create the service file directly in `/etc/systemd/system`:**
+
+```sh
+sudo vim /etc/systemd/system/streamlit.service
+```
+
+2. **Paste the following content (edit paths as needed):**
+
+```ini
+[Unit]
+Description=Streamlit App
+After=network.target
+
+[Service]
+User=devuser
+WorkingDirectory=/home/devuser/projects/test-rag
+ExecStart=/home/devuser/projects/test-rag/.venv/bin/streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+3. **Enable and start the service:**
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl enable streamlit
+sudo systemctl start streamlit
+```
+
+4. **Check the status:**
+
+```sh
+sudo systemctl status streamlit
+```
+
+The app will now run in the background and restart automatically if it crashes. You can access it at `http://YOUR_VPS_IP:8501/`.
+
+**Want to build something similar for your team or business? [Contact me](mailto:mi.scheiwiller@protonmail.com)**
