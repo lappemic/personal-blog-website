@@ -1,6 +1,6 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: "Michael's Website",
+  title: 'Michael Scheiwiller',
   author: 'Michael Scheiwiller',
   headerTitle: 'Michael Scheiwiller',
   description: 'A start to the world of personal websites',
