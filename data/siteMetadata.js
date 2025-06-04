@@ -9,7 +9,7 @@ const siteMetadata = {
   siteUrl: 'https://www.michaelscheiwiller.com',
   siteRepo: 'https://github.com/lappemic/personal-blog-website',
   siteLogo: `${process.env.BASE_PATH || ''}/static/favicons/mstile-310x310.png`,
-  socialBanner: `${process.env.BASE_PATH || ''}/static/favicons/mstile-310x310.png`,
+  socialBanner: `${process.env.BASE_PATH || ''}/static/images/ogimage.png`,
   // mastodon: 'https://mastodon.social/@mastodonuser',
   email: 'mi.scheiwiller@protonmail.com',
   github: 'https://github.com/lappemic',
