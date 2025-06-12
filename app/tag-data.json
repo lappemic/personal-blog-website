@@ -1,19 +1,20 @@
 {
-  "ssh": 1,
   "streamlit": 3,
-  "vps": 1,
+  "flask": 1,
+  "nginx": 1,
   "systemd": 2,
+  "linux": 3,
+  "automation": 2,
+  "vps": 1,
   "rag": 1,
   "chromadb": 1,
   "openai": 1,
   "cronjobs": 2,
   "monitoring": 1,
-  "automation": 2,
-  "people": 1,
+  "personal": 3,
+  "business": 3,
   "projects": 1,
-  "linux": 3,
-  "flask": 1,
-  "nginx": 1,
   "writing": 1,
-  "personal": 1
+  "people": 1,
+  "ssh": 1
 }
