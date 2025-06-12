@@ -1,0 +1,295 @@
+---
+title: 'Automating Streamlit App Deployment with GitHub Webhooks, Flask, Nginx and systemd'
+date: '2025-06-11'
+tags: ['streamlit', 'flask', 'nginx', 'systemd', 'linux', 'automation']
+draft: false
+summary: 'How wo automate your streamlit app deployment on your own vps'
+---
+
+## Table of Contents
+
+1. [Introduction](#1-introduction)
+2. [Prerequisites](#2-prerequisites)
+3. [Project Structure Overview](#3-project-structure-overview)
+4. [Deployment Workflow](#4-deployment-workflow)
+5. [Step-by-Step Setup](#5-step-by-step-setup)
+   1. [Setting Up the Streamlit App and Virtual Environment](#51-setting-up-the-streamlit-app-and-virtual-environment)
+   2. [Update Script](#52-update-script)
+   3. [Flask Webhook Listener](#53-flask-webhook-listener)
+   4. [Configuring Environment Variables](#54-configuring-environment-variables)
+   5. [Managing the Flask Listener with systemd](#55-managing-the-flask-listener-with-systemd)
+   6. [Nginx as a Reverse Proxy](#56-nginx-as-a-reverse-proxy)
+   7. [GitHub Webhook](#57-github-webhook)
+6. [Troubleshooting Common Issues](#6-troubleshooting-common-issues)
+7. [Conclusion](#7-conclusion)
+8. [Resources](#8-resources)
+
+# 1. Introduction
+
+In THE OTHER BLOG LINK i described how to setup streamlit and how to share it on a VPS with your customer. The issue with this approach is, you have to manually update the codebase on the vps. If you just want to share a 'final state' then this might be ok. But if you want to iterate and get feedback then this gets annoying and timeconsuming. This is why i automated this with a github webhook, flask, nginx and systemd.
+
+# 2. Prerequisits
+
+To be able to automate this you should have build or have access to:
+
+- VPS (will be on Linux)
+- Python, virtualenv and pip
+- Nginx
+- Your app hosted on github
+- basic knowledge of Linux cli
+- systemd
+
+# 3. Project Structure Overview
+
+The structure of my app is as follows (parts not relevant for this post are marked (Optional)):
+
+```bash
+.
+├── app.py                       # Main Streamlit application
+├── update_and_restart.sh        # Script to pull latest code and restart Streamlit
+├── webhook_listener.py          # Flask app to handle GitHub webhooks
+├── requirements.txt             # Python dependencies
+├── .env                         # (Optional) Environment variables for Streamlit/OpenAI
+├── .venv/                       # Python virtual environment
+├── data/                        # (Optional) Data files for your app
+├── chroma_db/                   # (Optional) ChromaDB vector store
+├── scripts/                     # (Optional) Helper scripts for data processing
+└── README.md                    # Project documentation
+```
+
+# 4. Deployment Workflow
+
+Below is an extensive chart on how the deployment workflow looks like. Broken down to the main parts:
+
+1. The user pushes a new commit to the github repository
+2. Github sends a webhook to the flask app
+3. The flask app pulls the latest code from the github repository
+4. The flask app restarts the streamlit app
+
+In the next section each part is explained in detail.
+
+<div className="-mx-2 flex flex-wrap overflow-hidden xl:-mx-2">
+  <div className="my-1 w-full overflow-hidden px-2 xl:my-1 xl:w-1/2 xl:px-2">
+    <img
+      src="/static/images/streamlit_automated_deployment_workflow.svg"
+      alt="Streamlit Automated Deployment Workflow"
+      style={{ width: '100%', height: 'auto' }}
+    />
+  </div>
+</div>
+
+# 5. Step-by-Step Setup
+
+## 5.1 Setting Up the Streamlit App and Virtaul Environment
+
+Clone your streamlit app to your VPS, create a virtual environment and install the dependencies.
+
+```bash
+git clone <your-repo-url>
+cd <your-repo-name>
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## 5.2 Update Script
+
+Create a bash script to pull the latest code from the github repository and restart the streamlit app (e.g. `update_and_restart.sh`). This script will be used to update the app on the VPS.
+
+```bash:update_and_restart.sh
+#!/bin/bash
+
+# Update the repository
+git pull
+
+# activate the virtual environment
+source .venv/bin/activate
+
+# install the dependencies
+pip install -r requirements.txt
+
+# restart the application
+sudo systemctl restart streamlit
+```
+
+## 5.3 Configuring Environment Variables
+
+Create a `.env` file to store the environment variables for the streamlit app (e.g. `GITHUB_WEBHOOK_SECRET`).
+
+```bash:.env
+GITHUB_WEBHOOK_SECRET=your-github-webhook-secret
+```
+
+> [!NOTE]
+> You can generate a random secret for the github webhook secret with `python3 -c "import secrets; print(secrets.token_hex(32))"`
+
+## 5.4 Flask Webhook Listener
+
+Create a flask app to handle the github webhook (e.g. `webhook_listener.py`). This app will be used to pull the latest code from the github repository and restart the streamlit app.
+
+```python:webhook_listener.py
+import hashlib
+import hmac
+import os
+import subprocess
+
+from flask import Flask, abort, request
+
+app = Flask(__name__)
+
+GITHUB_SECRET = os.environ.get("GITHUB_WEBHOOK_SECRET", "").encode()
+
+def verify_signature(payload, signature):
+    mac = hmac.new(GITHUB_SECRET, msg=payload, digestmod=hashlib.sha256)
+    expected = "sha256=" + mac.hexdigest()
+    return hmac.compare_digest(expected, signature)
+
+@app.route("/github-webhook", methods=["POST"])
+def github_webhook():
+    signature = request.headers.get("X-Hub-Signature-256")
+    if not signature or not verify_signature(request.data, signature):
+        abort(403)
+    event = request.headers.get("X-GitHub-Event")
+    if event == "push":
+        payload = request.json
+        if payload and payload.get("ref") == "refs/heads/main":
+            subprocess.Popen(
+                ["/bin/bash", "/home/devuser/projects/test-rag/update_and_restart.sh"]
+            )
+    return "", 204
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=9000)
+```
+
+## 5.5 Managing the Flask Listener with systemd
+
+Create a systemd service to manage the flask listener (e.g. `streamlit-webhook-listener.service`). This service will be used to start the flask listener on boot. This file lives in `/etc/systemd/system/`.
+
+```bash:streamlit-webhook-listener.service
+  [Unit]
+  Description=Flask GitHub Webhook Listener
+
+  [Service]
+  User=devuser
+  WorkingDirectory=/home/devuser/projects/test-rag
+  Environment=GITHUB_WEBHOOK_SECRET='<your-github-webhook-secret>'
+  ExecStart=/home/devuser/projects/test-rag/.venv/bin/python3 webhook_listener.py
+  Restart=always
+
+  [Install]
+  WantedBy=multi-user.target
+```
+
+## 5.6 Nginx as a Reverse Proxy
+
+Nginx is used as a reverse proxy to handle the incoming requests to the flask app. This is done to protect the flask app from direct access from the internet. Create a nginx configuration file:
+
+```bash
+sudo vim /etc/nginx/sites-available/streamlit-webhook
+```
+
+and then add the following content:
+
+```bash:streamlit-webhook
+server {
+    listen 8080;
+    server_name YOUR_VPS_IP;
+
+    location /github-webhook {
+        proxy_pass http://127.0.0.1:9000/github-webhook;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+The configuration file is then linked to the nginx sites-enabled directory:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/streamlit-webhook /etc/nginx/sites-enabled/
+sudo nginx -t # test the configuration
+sudo systemctl restart nginx
+```
+
+**Test if the nginx configuration is working**
+From your VPS try the following commands:
+
+```bash
+sudo systemctl status nginx
+sudo netstat -tuln | grep 8080
+```
+
+You should see the following output:
+
+```bash
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN
+```
+
+and then try to send a request to the flask app:
+
+```bash
+curl -X POST http://127.0.0.1:9000/github-webhook
+curl -X POST http://localhost:8080/github-webhook
+```
+
+- The first command should hit flask directly and return some html with an 403 error (not authorized)
+- The second command should hit nginx and return as well some html with an 403 error (not authorized)
+
+> [!NOTE]
+>
+> 1. A reverse proxy is a server that sits in front of your application and handles the incoming requests. It can be used to protect your application from direct access from the internet. (in contrast to a forward proxy which is used to access the internet)
+> 2. You can find the IP of your VPS with `curl -4 ifconfig.me`
+
+## 5.7 Open your Firewall
+
+If you are using a VPS provider like Hetzner, you might need to open the port 8080 in the firewall.
+
+```bash
+sudo ufw allow 8080/tcp
+sudo ufw enable
+```
+
+## 5.8 Github Webhook
+
+Create a github webhook to send a request to the flask app when a new commit is pushed to the repository.
+
+1. Go to your github repository
+2. Click on `Settings` > `Webhooks` > `Add Webhooks`
+3. Set the payload URL to `http://YOUR_VPS_IP:8080/github-webhook`
+4. Set the content type to `application/json`
+5. Disable SSL verification
+6. Set the secret to the same secret as in the `.env` file
+7. Set the events to `Push`
+8. Click on `Add webhook`
+
+# 6. Test the Setup
+
+Push a new commit to the github repository and check if the streamlit app is updated.
+
+- Is your vps reachable from the internet?
+  On your local machine try to send a request to the vps:
+
+```bash
+curl -X POST http://YOUR_VPS_IP:8080/github-webhook
+```
+
+If you get a 403 error again, you should be good to go.
+
+# 7. Conclusion
+
+In this blog post i showed how to automate the deployment of a streamlit app on a VPS with github webhooks, flask, nginx and systemd. This is a great way to deploy your streamlit app and keep it up to date so you can iterate and get feedback from your customers.
+
+**Want to build something similar for your team or business? [Let's talk](mailto:mi.scheiwiller@protonmail.com) i am happy to help out**
+
+# 8. Resources
+
+- [Fast Private Streamlit Sharing with Systemd](https://michaelscheiwiller.com/blog/fast-private-streamlit-sharing-with-systemd)
+- [Setting up a new VPS](https://michaelscheiwiller.com//blog/setting-up-new-server)
+- [Streamlit Documentation](https://docs.streamlit.io/)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [Nginx Documentation](https://nginx.org/en/docs/)
+- [Systemd Documentation](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
+- [Github Webhooks Documentation](https://docs.github.com/en/webhooks)
