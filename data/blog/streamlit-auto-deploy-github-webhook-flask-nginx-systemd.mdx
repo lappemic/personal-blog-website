@@ -166,7 +166,7 @@ if __name__ == "__main__":
 
 Create a systemd service to manage the flask listener (e.g. `streamlit-webhook-listener.service`). This service will be used to start the flask listener on boot. This file lives in `/etc/systemd/system/`.
 
-```bash:streamlit-webhook-listener.service
+```toml:streamlit-webhook-listener.service
   [Unit]
   Description=Flask GitHub Webhook Listener
 
