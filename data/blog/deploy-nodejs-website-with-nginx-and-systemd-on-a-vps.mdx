@@ -1,22 +1,24 @@
 ---
-title: 'Deploying a Node.js Website: From Development to Production with Nginx and Systemd'
+title: 'How to deploy a Node.js website with Nginx and Systemd on a VPS'
 date: '2025-07-30'
 tags: ['linux', 'nodejs', 'nginx', 'systemd']
-draft: true
-summary: 'How to deploy a Node.js website with Nginx and Systemd'
+draft: false
+summary: 'A simple guide to deploying a Node.js website with Nginx and Systemd on a VPS'
 ---
 
-# Deploying a Node.js Daily Stoic Website: From Development to Production with Nginx and Systemd
+# How to deploy a Node.js website with Nginx and Systemd on a VPS
 
-Building and deploying a web application can seem daunting, but with the right approach and tools, it becomes a straightforward process. In this post, I'll walk you through the complete setup of **The Daily Stoic** website - a minimalistic web app that serves daily philosophical meditations from Ryan Holiday's book "The Daily Stoic: 366 Meditations on Wisdom, Perseverance, and the Art of Living."
+For some time i wanted to read the [The Daily Stoic](https://www.goodreads.com/book/show/29093292-the-daily-stoic), but i never got to start it. So i decided to build a simple website that would serve one stoic meditation per day. With this i could get some more practice with systemd and nginx.
+
+If you are just looking for the code, you can find it [here](https://github.com/lappemic/366dailystoic).
 
 ## Project Overview
 
-The Daily Stoic website is designed with simplicity in mind:
+The Daily Stoic website is has a simple design:
 
 - **Purpose**: Deliver one stoic meditation per day based on the current date
-- **Design Philosophy**: Clean, readable interface with elegant typography
-- **Tech Stack**: Minimal but robust - Node.js backend, SQLite database, vanilla frontend
+- **Design Philosophy**: Clean, readable interface
+- **Tech Stack**: Minimal but robust - Node.js backend, SQLite database, vanilla HTML/CSS/JavaScript frontend
 - **Deployment**: Production-ready setup on a VPS with proper SSL and caching
 
 ## Tech Stack and Architecture
@@ -114,24 +116,9 @@ open http://localhost:3000
 
 ## Production Deployment on VPS
 
-### 1. Server Preparation
+### 1. Server Preparation and repo clone
 
-First, set up your Ubuntu VPS with necessary packages:
-
-```bash
-# Update system
-sudo apt update && sudo apt upgrade -y
-
-# Install Node.js, Nginx, and other essentials
-sudo apt install nodejs npm nginx git sqlite3 -y
-
-# Clone your repository
-git clone <your-repo-url>
-cd 366dailystoic
-
-# Install dependencies
-npm install
-```
+Check out my other posts on [how to setup a vps](https://michaelscheiwiller.com/blog/setting-up-new-server) and [how to configure ssh for your vps](https://michaelscheiwiller.com/blog/configure-ssh-config) so you can easily handle your vps.
 
 ### 2. Systemd Service Configuration
 
@@ -188,6 +175,8 @@ sudo systemctl status daily-stoic
 # View logs
 sudo journalctl -u daily-stoic -f
 ```
+
+For other systemd examples, check out the blog post [Fast Private Streamlit Sharing with Systemd](https://michaelscheiwiller.com/blog/fast-private-streamlit-sharing-with-systemd)
 
 ### 3. Nginx Reverse Proxy Configuration
 
@@ -253,7 +242,7 @@ server {
         proxy_read_timeout 60s;
     }
 
-    listen 443 ssl; # managed by Certbot
+    listen 443 ssl; # managed by Certbot -> this part will automatically be set after you run the certbot command in the next step
     ssl_certificate /etc/letsencrypt/live/366dailystoic.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/366dailystoic.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
@@ -406,28 +395,6 @@ sudo systemctl status nginx
 htop
 ```
 
-### SSL Certificate Renewal
-
-Let's Encrypt certificates auto-renew via systemd timer:
-
-```bash
-# Check renewal status
-sudo certbot certificates
-
-# Manual renewal (if needed)
-sudo certbot renew
-```
-
-### Backup Strategy
-
-```bash
-# Backup database
-cp daily-stoic.db backups/daily-stoic-$(date +%Y%m%d).db
-
-# Backup Nginx configuration
-sudo cp /etc/nginx/sites-available/daily-stoic backups/
-```
-
 ## Conclusion
 
 This setup provides a robust, production-ready deployment for a Node.js application with:
@@ -441,11 +408,4 @@ The Daily Stoic website demonstrates that simple, well-architected solutions can
 
 The total setup takes about 30 minutes once you understand the components, and the result is a professional-grade web application that can handle significant traffic while remaining easy to maintain and monitor.
 
-**Key Takeaways:**
-
-1. **Keep it simple**: Minimal dependencies reduce complexity and potential failure points
-2. **Security first**: Implement proper headers, SSL, and process isolation from the start
-3. **Monitor everything**: Good logging and monitoring prevent small issues from becoming big problems
-4. **Automate wisely**: Use systemd for process management and Let's Encrypt for SSL automation
-
-Whether you're deploying a simple meditation website or a complex web application, these principles and configurations provide a solid foundation for production deployments.
+**Want to build something similar for your team or business? [Contact me](mailto:mi.scheiwiller@protonmail.com)**
