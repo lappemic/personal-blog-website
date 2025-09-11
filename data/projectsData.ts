@@ -74,6 +74,12 @@ const projectsData: Project[] = [
     href: 'https://www.pixthatsell.com?ref=michaelscheiwiller.com',
   },
   {
+    title: 'Asylassistent',
+    description: `AI-powered assistant for asylum counseling in Switzerland. Provides support with questions about asylum procedures, work permits, and residency in Switzerland.`,
+    imgSrc: '/static/images/asylberatung.png',
+    href: 'https://www.asylassistent.ch?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'This Website :D',
     description:
       'This website is a portfolio of my projects and a blog (once i start the blog...). Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) and [Contentlayer](https://www.contentlayer.dev/).',
