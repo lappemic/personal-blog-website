@@ -68,6 +68,12 @@ const projectsData: Project[] = [
     href: 'https://www.pongarcade.com?ref=michaelscheiwiller.com',
   },
   {
+    title: 'PixThatSell',
+    description: `AI-powered photo enhancement tool that transforms amateur photos into professional sales magnets. Helps sellers create compelling product images that sell 3x faster.`,
+    imgSrc: '/static/images/pixthatsell.png',
+    href: 'https://www.pixthatsell.com?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'This Website :D',
     description:
       'This website is a portfolio of my projects and a blog (once i start the blog...). Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) and [Contentlayer](https://www.contentlayer.dev/).',
