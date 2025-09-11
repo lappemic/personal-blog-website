@@ -9,6 +9,18 @@ interface Project {
 
 const projectsData: Project[] = [
   {
+    title: 'PixThatSell',
+    description: `AI-powered photo enhancement tool that transforms amateur photos into professional sales magnets. Helps sellers create compelling product images that sell 3x faster.`,
+    imgSrc: '/static/images/pixthatsell.png',
+    href: 'https://www.pixthatsell.com?ref=michaelscheiwiller.com',
+  },
+  {
+    title: 'Asylassistent',
+    description: `AI-powered assistant for asylum counseling in Switzerland. Provides support with questions about asylum procedures, work permits, and residency in Switzerland.`,
+    imgSrc: '/static/images/asylberatung.png',
+    href: 'https://www.asylberatung.ch?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'ByteBricks.ch',
     description:
       'An MVP development Studio. For non-technical people who want to check their idea in real life.',
@@ -66,18 +78,6 @@ const projectsData: Project[] = [
     description: `A simple pong game built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/).`,
     imgSrc: '/static/images/pongarcade.png',
     href: 'https://www.pongarcade.com?ref=michaelscheiwiller.com',
-  },
-  {
-    title: 'PixThatSell',
-    description: `AI-powered photo enhancement tool that transforms amateur photos into professional sales magnets. Helps sellers create compelling product images that sell 3x faster.`,
-    imgSrc: '/static/images/pixthatsell.png',
-    href: 'https://www.pixthatsell.com?ref=michaelscheiwiller.com',
-  },
-  {
-    title: 'Asylassistent',
-    description: `AI-powered assistant for asylum counseling in Switzerland. Provides support with questions about asylum procedures, work permits, and residency in Switzerland.`,
-    imgSrc: '/static/images/asylberatung.png',
-    href: 'https://www.asylassistent.ch?ref=michaelscheiwiller.com',
   },
   {
     title: 'This Website :D',
