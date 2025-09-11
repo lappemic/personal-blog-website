@@ -59,7 +59,7 @@ const projectsData: Project[] = [
     description: `csv2ai takes a csv of product descriptions and optimizes the description and title, optimizes for SEO and lets you translate everything to 100+ languages. This is the result of a freelancing gig i did for a client.
     Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Contentlayer](https://www.contentlayer.dev/) and [Supabase](https://supabase.com/).`,
     imgSrc: '/static/images/csv2ai.png',
-    href: 'https://www.csv2ai.io?ref=michaelscheiwiller.com',
+    href: 'https://x.com/mischeiwiller/status/1934598997420744877',
   },
   {
     title: 'pongarcade.com',
