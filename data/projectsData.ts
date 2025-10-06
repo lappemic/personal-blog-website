@@ -15,6 +15,12 @@ const projectsData: Project[] = [
     href: 'https://www.pixthatsell.com?ref=michaelscheiwiller.com',
   },
   {
+    title: 'investfa.st',
+    description: `A static website promoting passive ETF investing through humor and memes. Self-hosted on Hetzner VPS with Node.js backend and SQLite for email signups.`,
+    imgSrc: '/static/images/investfast.svg',
+    href: 'https://investfa.st?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'Asylassistent',
     description: `AI-powered assistant for asylum counseling in Switzerland. Provides support with questions about asylum procedures, work permits, and residency in Switzerland.`,
     imgSrc: '/static/images/asylberatung.png',

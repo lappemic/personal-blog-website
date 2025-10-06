@@ -1,0 +1,103 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark background -->
+  <rect width="1200" height="630" fill="#0a0e13"/>
+  
+  <!-- Grid pattern for depth -->
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#50f2a0" stroke-width="0.5" opacity="0.1"/>
+    </pattern>
+    
+    <!-- Gradient for text -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#50f2a0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3dd68c;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Grid background -->
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Chart visualization -->
+  <g transform="translate(100, 400)">
+    <!-- Chart line going up -->
+    <path d="M 0 150 Q 200 140 400 100 T 800 -50 T 1000 -150" 
+          stroke="#50f2a0" 
+          stroke-width="4" 
+          fill="none" 
+          filter="url(#glow)"
+          opacity="0.8"/>
+    
+    <!-- Area under the line -->
+    <path d="M 0 150 Q 200 140 400 100 T 800 -50 T 1000 -150 L 1000 200 L 0 200 Z" 
+          fill="url(#textGradient)" 
+          opacity="0.1"/>
+  </g>
+  
+  <!-- Main headline -->
+  <text x="600" y="200" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="72" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="#ffffff">
+    Do Nothing.
+  </text>
+  
+  <text x="600" y="280" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="72" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="#ffffff">
+    Own Everything.
+  </text>
+  
+  <!-- Subheadline -->
+  <text x="600" y="350" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="32" 
+        font-weight="400" 
+        text-anchor="middle" 
+        fill="#50f2a0"
+        opacity="0.9">
+    S&amp;P 500 ETFs + Chill = Wealth
+  </text>
+  
+  <!-- Call to action -->
+  <rect x="450" y="420" width="300" height="60" rx="30" fill="#50f2a0"/>
+  <text x="600" y="458" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="24" 
+        font-weight="700" 
+        text-anchor="middle" 
+        fill="#0a0e13">
+    InvestFA.st
+  </text>
+  
+  <!-- Bottom tagline -->
+  <text x="600" y="550" 
+        font-family="system-ui, -apple-system, sans-serif" 
+        font-size="20" 
+        font-weight="400" 
+        text-anchor="middle" 
+        fill="#ffffff"
+        opacity="0.6">
+    Join the lazy investor revolution
+  </text>
+  
+  <!-- Small decorative elements -->
+  <circle cx="100" cy="100" r="3" fill="#50f2a0" opacity="0.5"/>
+  <circle cx="1100" cy="100" r="3" fill="#50f2a0" opacity="0.5"/>
+  <circle cx="100" cy="530" r="3" fill="#50f2a0" opacity="0.5"/>
+  <circle cx="1100" cy="530" r="3" fill="#50f2a0" opacity="0.5"/>
+</svg>
