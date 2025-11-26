@@ -9,6 +9,12 @@ interface Project {
 
 const projectsData: Project[] = [
   {
+    title: 'LocalePay',
+    description: `A Stripe add-on that boosts checkout conversion by showing the best local payment methods per user in Europe and Switzerland. Read more about it [here](/blog/localepay).`,
+    imgSrc: '/static/images/localepay.png',
+    href: 'https://localepay.io?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'PixThatSell',
     description: `AI-powered photo enhancement tool that transforms amateur photos into professional sales magnets. Helps sellers create compelling product images that sell 3x faster.`,
     imgSrc: '/static/images/pixthatsell.png',

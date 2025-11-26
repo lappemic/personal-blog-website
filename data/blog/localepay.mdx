@@ -1,0 +1,43 @@
+---
+title: 'Launching LocalePay'
+date: '2025-11-26'
+tags: ['projects', 'experiment']
+draft: false
+summary: 'A Stripe add-on to boost checkout conversion in Europe and Switzerland.'
+---
+
+# Why LocalePay?
+
+I have been working with Stripe for a while now. And one thing that always bugged me is how underutilized local payment methods are. Most merchants just enable cards and maybe PayPal. But in Europe and Switzerland, this is leaving money on the table.
+
+## The Problem
+
+Stripe supports a ton of payment methods: cards, SEPA, iDEAL, Sofort, TWINT, and many more. But most businesses:
+
+- Don't know which methods to enable for each country
+- Don't optimize the ordering or default method per country or device
+- Often show "card first" even in markets where local bank or wallet methods are preferred
+- Never revisit this setup after initial integration
+
+In Switzerland for example, TWINT is huge. In the Netherlands, iDEAL is king. In Germany, Sofort and SEPA are popular. Showing only card options in these markets is like asking customers to pay in a way they don't prefer.
+
+## What LocalePay Does
+
+LocalePay sits between your app and Stripe. You give it:
+
+- Country
+- Currency
+- Device type
+- Optionally cart value
+
+And it returns which payment methods to show and in what order. For Switzerland? TWINT first, then card, then SEPA. For the Netherlands? iDEAL first. You get the idea.
+
+The goal is simple: increase checkout completion rate. Even a bump from 60% to 66% creates a clear, measurable revenue uplift.
+
+## Why Building This?
+
+I like building small tools that solve specific problems. Payment optimization in Europe is fragmented and underserved. Most resources are US-focused. And since i work with Stripe anyway, this felt like a natural experiment.
+
+Also, i want to see if there is actually demand for this. Building in public and shipping fast to learn quickly.
+
+Check it out at [localepay.io](https://localepay.io?ref=michaelscheiwiller.com).
