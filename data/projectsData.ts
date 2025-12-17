@@ -9,6 +9,12 @@ interface Project {
 
 const projectsData: Project[] = [
   {
+    title: 'LeadershipBuddy',
+    description: `An AI-powered leadership assistant that provides personalized answers for any leadership situation. Get instant, confidential advice based on your role, team, and industry. 100% Swiss Made.`,
+    imgSrc: '/static/images/leadershipbuddy.png',
+    href: 'https://leadershipbuddy.ch?ref=michaelscheiwiller.com',
+  },
+  {
     title: 'LocalePay',
     description: `A Stripe add-on that boosts checkout conversion by showing the best local payment methods per user in Europe and Switzerland. Read more about it [here](/blog/localepay).`,
     imgSrc: '/static/images/localepay.png',
