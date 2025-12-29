@@ -143,9 +143,29 @@ export const Authors = defineDocumentType(() => ({
   computedFields,
 }))
 
+export const Reading = defineDocumentType(() => ({
+  name: 'Reading',
+  filePathPattern: 'readings/**/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    title: { type: 'string', required: true },
+    author: { type: 'string' },
+    url: { type: 'string', required: true },
+    dateRead: { type: 'date', required: true },
+    category: {
+      type: 'enum',
+      options: ['blog', 'essay', 'substack', 'article', 'paper'],
+      default: 'article',
+    },
+    summary: { type: 'string' },
+    draft: { type: 'boolean' },
+  },
+  computedFields,
+}))
+
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Authors],
+  documentTypes: [Blog, Authors, Reading],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [
