@@ -1,4 +1,5 @@
 {
+  "business": 3,
   "reading": 1,
   "people": 2,
   "ssh": 1,
@@ -13,6 +14,7 @@
   "rag": 1,
   "chromadb": 1,
   "openai": 1,
+  "personal": 3,
   "projects": 2,
   "experiment": 1,
   "cronjobs": 2,
@@ -20,6 +22,5 @@
   "automation": 2,
   "flask": 1,
   "blogs": 1,
-  "writing": 1,
-  "personal": 1
+  "writing": 1
 }
