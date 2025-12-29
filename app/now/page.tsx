@@ -15,8 +15,7 @@ export default function Now() {
             Now
           </h1>
           <p className="text-base leading-7 text-gray-500 dark:text-gray-400">
-            What I'm focusing on right now — Updated{' '}
-            {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            What I'm focusing on right now
           </p>
         </div>
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
@@ -47,16 +46,26 @@ export default function Now() {
                 <li>
                   Working on{' '}
                   <Link
-                    href="https://nextgenenergyjobs.com"
+                    href="https://leadershipbuddy.ch"
                     className="text-primary-500 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    NextGenEnergyJobs.com
+                    LeadershipBuddy.ch
                   </Link>
                 </li>
-                <li>Learning about AI Agents and System Administration</li>
-                <li>Reduced my working hours to ~30 hours a week</li>
+                <li>
+                  Rebranding from freelancing to engineering studio{' '}
+                  <Link
+                    href="https://bytebricks.ch"
+                    className="text-primary-500 hover:text-primary-400 dark:text-primary-400 dark:hover:text-primary-300"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ByteBricks.ch
+                  </Link>
+                </li>
+                <li>Recurring clients with smaller projects</li>
               </ul>
             </section>
 
@@ -97,17 +106,6 @@ export default function Now() {
                 <li>Working on consistency</li>
               </ul>
             </section>
-
-            <div className="mt-8 text-sm text-gray-600 dark:text-gray-400">
-              <p>
-                Last updated:{' '}
-                {new Date().toLocaleDateString('en-US', {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </p>
-            </div>
           </div>
         </div>
       </div>
