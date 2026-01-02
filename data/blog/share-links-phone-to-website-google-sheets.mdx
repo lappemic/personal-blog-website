@@ -1,0 +1,181 @@
+---
+title: 'Share Links from Phone to Website with Google Sheets and iOS Shortcuts'
+date: '2025-01-02'
+tags: ['automation', 'ios', 'google-sheets', 'nextjs']
+draft: false
+summary: 'The easiest way to share a link from your phone and have it published on your static website'
+---
+
+I just set this up and want to document it for reproducibility. The goal: share any link from my phone and have it automatically appear on my website. No backend needed, just Google Sheets as a "database" and an iOS Shortcut to post to it.
+
+## The Flow
+
+```
+Share link on iPhone → iOS Shortcut → Google Apps Script → Google Sheet → Website rebuilds
+```
+
+## 1. Create the Google Sheet
+
+Create a new Google Sheet with three columns:
+
+| Date | URL | Title |
+| ---- | --- | ----- |
+
+Make it publicly viewable: **Share → Anyone with the link → Viewer**
+
+Copy the Sheet ID from the URL - it's the long string between `/d/` and `/edit`:
+
+```
+https://docs.google.com/spreadsheets/d/THIS_IS_YOUR_SHEET_ID/edit
+```
+
+## 2. Create the Google Apps Script
+
+In your Google Sheet go to **Extensions → Apps Script** and paste this code:
+
+```js
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet()
+  const data = JSON.parse(e.postData.contents)
+
+  sheet.appendRow([new Date().toISOString(), data.url, data.title || ''])
+
+  // Optional: Trigger Vercel rebuild
+  // Get deploy hook from: Vercel Dashboard → Settings → Git → Deploy Hooks
+  // UrlFetchApp.fetch('https://api.vercel.com/v1/integrations/deploy/YOUR_HOOK', { method: 'POST' })
+
+  return ContentService.createTextOutput(JSON.stringify({ success: true })).setMimeType(
+    ContentService.MimeType.JSON
+  )
+}
+```
+
+## 3. Deploy the Script as Web App
+
+Click **Deploy → New deployment** and configure:
+
+- Type: **Web app**
+- Execute as: **Me** (important!)
+- Who has access: **Anyone** (not "Anyone with Google account"!)
+
+Click **Deploy** and copy the Web App URL.
+
+### Authorize the Script
+
+The first time you deploy, Google will show a warning "Google hat diese App nicht überprüft" (Google hasn't verified this app). This is normal for personal scripts:
+
+1. Click **Erweitert** (Advanced)
+2. Click **Zu [project name] wechseln (unsicher)** (Go to [project name] (unsafe))
+3. Click **Zulassen** (Allow)
+
+This authorizes your own script to access your own spreadsheet.
+
+## 4. Create the iOS Shortcut
+
+Open the **Shortcuts** app and create a new shortcut:
+
+1. Add action: **Receive URLs input from Share Sheet**
+
+   - If there's no input: Continue
+
+2. Add action: **Get Contents of URL**
+   - URL: paste your Google Apps Script URL
+   - Method: **POST**
+   - Request Body: **JSON**
+   - Add field: `url` with value **Shortcut Input**
+
+Name the shortcut something like "Save Link".
+
+That's it. Now when you share any link from Safari, Twitter, or anywhere else, tap your shortcut and it gets added to your Google Sheet.
+
+## 5. Fetch Links in Next.js
+
+Create a helper to fetch from Google Sheets at build time:
+
+```ts
+// lib/getLinks.ts
+export interface Link {
+  date: string
+  url: string
+  title: string
+}
+
+export async function getLinks(): Promise<Link[]> {
+  const sheetId = process.env.GOOGLE_SHEET_ID
+
+  if (!sheetId) {
+    console.warn('GOOGLE_SHEET_ID not set')
+    return []
+  }
+
+  try {
+    const res = await fetch(
+      `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`,
+      { next: { revalidate: 60 } }
+    )
+
+    const text = await res.text()
+    const jsonString = text.slice(47, -2) // Strip Google's wrapper
+    const data = JSON.parse(jsonString)
+
+    const links: Link[] = data.table.rows
+      .map((row: { c: Array<{ v: string | null }> }) => ({
+        date: row.c[0]?.v || '',
+        url: row.c[1]?.v || '',
+        title: row.c[2]?.v || '',
+      }))
+      .filter((link: Link) => link.url)
+
+    return links.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  } catch (error) {
+    console.error('Failed to fetch links:', error)
+    return []
+  }
+}
+```
+
+Add to your `.env`:
+
+```
+GOOGLE_SHEET_ID=your_sheet_id_here
+```
+
+## 6. Display the Links
+
+Create a page to display your links:
+
+```tsx
+// app/links/page.tsx
+import { getLinks } from '@/lib/getLinks'
+
+export default async function LinksPage() {
+  const links = await getLinks()
+
+  return (
+    <div>
+      <h1>Links</h1>
+      <ul>
+        {links.map((link, i) => (
+          <li key={i}>
+            <a href={link.url} target="_blank" rel="noopener noreferrer">
+              {link.title || link.url}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+## Optional: Auto-rebuild on New Links
+
+Uncomment the `UrlFetchApp.fetch` line in the Apps Script and add your Vercel deploy hook. Every time you share a link, your site will automatically rebuild with the new content.
+
+## Why This Setup?
+
+- **No backend needed** - Google Sheets is the database
+- **Free** - no costs for storage or API calls
+- **Native iOS integration** - appears in the share sheet
+- **Editable** - can manually edit links in Google Sheets
+- **Simple** - took about 15 minutes to set up
