@@ -27,6 +27,7 @@ export default function Projects() {
                 description={d.description}
                 imgSrc={d.imgSrc}
                 href={d.href}
+                badge={d.badge}
               />
             ))}
           </div>

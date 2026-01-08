@@ -3,6 +3,7 @@ interface Project {
   description: string
   href?: string
   imgSrc?: string
+  badge?: string
 }
 
 // images should be 544x306
@@ -88,7 +89,7 @@ const projectsData: Project[] = [
     title: 'pongarcade.com',
     description: `A simple pong game built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/).`,
     imgSrc: '/static/images/pongarcade.png',
-    href: 'https://www.pongarcade.com?ref=michaelscheiwiller.com',
+    badge: 'discontinued',
   },
   {
     title: 'This Website :D',

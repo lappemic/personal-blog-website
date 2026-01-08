@@ -7,9 +7,10 @@ interface CardProps {
   description: string
   imgSrc?: string
   href?: string
+  badge?: string
 }
 
-export default function Card({ title, description, imgSrc, href }: CardProps) {
+export default function Card({ title, description, imgSrc, href, badge }: CardProps) {
   return (
     <div className="w-full">
       <div className="flex overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-800">
@@ -37,15 +38,22 @@ export default function Card({ title, description, imgSrc, href }: CardProps) {
           </div>
         )}
         <div className="flex-1 p-4">
-          <h2 className="text-lg font-medium leading-6 tracking-tight text-neutral-900 dark:text-neutral-100">
-            {href ? (
-              <Link href={href} aria-label={`Link to ${title}`}>
-                {title}
-              </Link>
-            ) : (
-              title
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg font-medium leading-6 tracking-tight text-neutral-900 dark:text-neutral-100">
+              {href ? (
+                <Link href={href} aria-label={`Link to ${title}`}>
+                  {title}
+                </Link>
+              ) : (
+                title
+              )}
+            </h2>
+            {badge && (
+              <span className="rounded-full bg-neutral-200 px-2 py-0.5 text-xs font-medium text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300">
+                {badge}
+              </span>
             )}
-          </h2>
+          </div>
           <p
             className="prose mt-1 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-300"
             dangerouslySetInnerHTML={{ __html: parseMarkdownLinks(description) }}
