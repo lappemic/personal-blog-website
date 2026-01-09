@@ -84,6 +84,7 @@ const projectsData: Project[] = [
     Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [Contentlayer](https://www.contentlayer.dev/) and [Supabase](https://supabase.com/).`,
     imgSrc: '/static/images/csv2ai.png',
     href: 'https://x.com/mischeiwiller/status/1934598997420744877',
+    badge: 'sold',
   },
   {
     title: 'pongarcade.com',
@@ -106,10 +107,11 @@ const projectsData: Project[] = [
   },
   {
     title: 'foodjuggler',
-    description: `A MVP i made some time back to test the first OpenAI API: Suggests a recipe based 
+    description: `A MVP i made some time back to test the first OpenAI API: Suggests a recipe based
     on the given ingredients and creates a picture of it. Built with [Streamlit](https://streamlit.io/) and [OpenAI API](https://platform.openai.com/docs/api-reference/introduction).`,
     imgSrc: '/static/images/foodjuggler.png',
     href: 'https://github.com/lappemic/foodjuggler?ref=michaelscheiwiller.com',
+    badge: 'discontinued',
   },
   // {
   //   title: 'BatteryValueModel',
