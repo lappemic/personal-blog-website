@@ -92,6 +92,12 @@ const projectsData: Project[] = [
     badge: 'discontinued',
   },
   {
+    title: 'MindBoostingBooks.com',
+    description: `A curated collection of book recommendations for personal growth and productivity. My experiment with Amazon Associates affiliate marketing.`,
+    imgSrc: '/static/images/mindboostingbooks.png',
+    badge: 'discontinued',
+  },
+  {
     title: 'This Website :D',
     description:
       'This website is a portfolio of my projects and a blog (once i start the blog...). Built with [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/) and [Contentlayer](https://www.contentlayer.dev/).',
